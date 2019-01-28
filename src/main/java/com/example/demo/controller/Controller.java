@@ -122,14 +122,14 @@ public class Controller {
     }
 
     @GetMapping("/getAllHotels")
-    public Boolean getAllHotels() throws IOException {
+    public List<Hotel>  getAllHotels() throws IOException {
         List<Hotel> hotels = hs.getAllEntities(Hotel.class,"hotel","hoteldoc") ;
 
         for(Hotel h : hotels) {
             System.out.println(h.toString()) ;
         }
 
-        return true ;
+        return hotels ;
     }
 
     @GetMapping("/getAllBookings")
