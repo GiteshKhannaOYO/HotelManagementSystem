@@ -1,0 +1,31 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/mnt/logs/hms.log</file>
+        <append>true</append>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS}	 %-5level %-4r --- [%t] %logger{35}\t: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- https://logback.qos.ch/manual/appenders.html#asyncappender -->
+        <!-- queueSize: maximum capacity of the blocking queue. Default: 256 -->
+        <!-- discardingThreshold: discards logs except error & warn if capacity >= 80%-->
+        <!-- neverBlock: block on appending to full queue. Default: false-->
+        <queueSize>500</queueSize>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </appender>
+
+
+    <springProfile name="!production">
+        <root level="INFO">
+            <appender-ref ref="ASYNC"/>
+        </root>
+    </springProfile>
+
+</configuration>

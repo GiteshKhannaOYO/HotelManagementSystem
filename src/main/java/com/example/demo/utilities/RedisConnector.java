@@ -10,16 +10,16 @@ import java.awt.*;
 
 @Configuration
 public class RedisConnector {
-
-    //@Value("${redis.url}")
-    //private String redisUrl;
+//
+//    @Value("${redis.url}")
+//    private String redisUrl;
 
     @Bean("redisConnection")
     public StatefulRedisClusterConnection<String, String> createConnection() {
 
         System.out.println("redis");
 
-        RedisClusterClient client = RedisClusterClient.create( "redis://localhost:30001" );
+        RedisClusterClient client = RedisClusterClient.create("redis://localhost:30001");
         StatefulRedisClusterConnection<String, String> connection = client.connect();
         //     System.out.println("redis connection created");
 

@@ -19,7 +19,7 @@ import java.util.Set;
 public class Controller {
 
     @Autowired
-    private HotelService hs = new HotelService();
+    private HotelService hs ;
 
 
     @PostMapping("/addhotel")
@@ -50,10 +50,10 @@ public class Controller {
     public Boolean updateHotel(@RequestParam("hotelId") Long hotelId, @RequestBody Hotel hotel) throws IOException{
         if(hs.updateHotelServ(hotelId,hotel)) {
             System.out.println(hotel.toString()) ;
-            return false;
+            return true;
         }
         else
-            return true ;
+            return false ;
     }
 
 

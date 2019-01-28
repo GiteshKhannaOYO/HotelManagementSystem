@@ -3,13 +3,13 @@ package com.example.demo.utilities;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
+import org.springframework.beans.factory.annotation.Value;
 
 
 public class JestConnector {
 
+//    @Value("${elasticsearch.url}")
+//    private String esURL;
 
     public JestClient makeJestClient() {
 

@@ -178,7 +178,6 @@ public class HotelService{
 
         return false ;
 
-
     }
 
 
@@ -370,9 +369,9 @@ public class HotelService{
         QueryBuilder queryBuilder = QueryBuilders.boolQuery().must(dateMatcher).must(hotelMatcher) ;
 
         SearchResult result = searchResult("availablerooms","availableroomsdoc",queryBuilder) ;
-        List<AvailableRooms> articles = result.getSourceAsObjectList(AvailableRooms.class,false);
+        AvailableRooms article = result.getSourceAsObject(AvailableRooms.class,false);
 
-        return articles.size() == 1 ? true : false ;
+        return article!=null ? true : false ;
 
     }
 
@@ -466,10 +465,6 @@ public class HotelService{
                 avail_rooms.setDate(stringDateIterator.substring(0,10)); //Passing just the date part so that es picks date mapping and since the rooms are always booked for a round value of one day
                 avail_rooms.setId();
                 newAvailableRoomsServ(avail_rooms) ;
-            }else{
-                AvailableRooms article = getById(AvailableRooms.class,"availablerooms","availableroomsdoc","id",stringDateIterator+" "+Long.toString(hotelId)) ;
-                article.setAvailableRooms(article.getAvailableRooms()-1);
-                updateAvailableRoomsServ(article) ;
             }
 
             calIterator.add(Calendar.DATE,1) ;
@@ -519,7 +514,6 @@ public class HotelService{
 
 
     @Scheduled(fixedRate = 5000)
-    @PostConstruct
     public void trendingHotels() throws IOException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String current_date = formatter.format(new Date());
@@ -600,8 +594,7 @@ public class HotelService{
         Calendar calIterator = calCheckIn ;
 
         while(calIterator.before(calCheckOut)){
-            Date calDate =  calIterator.getTime();
-            String iterator = formatter.format(calDate) ;
+           String iterator = hc.changeCalendarToString(calIterator) ;
 
             AvailableRooms ar = getById(AvailableRooms.class,"availablerooms","availableroomsdoc","id",iterator+" "+booking.getHotelId()) ;
             ar.setAvailableRooms(ar.getAvailableRooms()+1);
