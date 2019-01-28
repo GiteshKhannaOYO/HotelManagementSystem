@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 @RestController
 public class HealthCheckController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(HealthCheckController.class);
 
-    @RequestMapping(value = "/ping", method = RequestMethod.GET)
-    public String ping() {
-        LOGGER.info("Receiver ping");
+    @RequestMapping(value="/ping", method = RequestMethod.GET)
+    public String ping(){
+        LOGGER.info("Reciever ping");
         return "OK";
     }
+
 }

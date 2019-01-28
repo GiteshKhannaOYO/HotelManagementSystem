@@ -38,7 +38,6 @@ public class HotelService{
     private RedisService rs ;
 
     @Qualifier("jestConnection")
-
     @Autowired
     private JestClient jc ;
 
