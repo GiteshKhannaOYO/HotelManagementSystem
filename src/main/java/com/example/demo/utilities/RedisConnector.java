@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 
+
+@Component
+
 @Configuration
 public class RedisConnector {
 
@@ -17,31 +20,12 @@ public class RedisConnector {
     @Bean("redisConnection")
     public StatefulRedisClusterConnection<String, String> createConnection() {
 
-        System.out.println("redis");
 
-        RedisClusterClient client = RedisClusterClient.create(redisUrl);
+        RedisClusterClient client = RedisClusterClient.create( redisUrl );
         StatefulRedisClusterConnection<String, String> connection = client.connect();
-        //     System.out.println("redis connection created");
-
-        System.out.println(connection);
-
         return connection;
+
     }
-
-
-
-
-
-
-
-
-//    @Override
-//    public void destroy() throws Exception {
-//
-//        client.shutdown();
-//    }
-
-
 
 
 }

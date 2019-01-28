@@ -14,12 +14,13 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 
-import javax.annotation.PostConstruct;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +36,13 @@ public class HotelService{
 
     @Autowired
     private RedisService rs ;
-    private JestClient jc = (JestClient) (new JestConnector()).makeJestClient();
+
+    @Qualifier("jestConnection")
+
+    @Autowired
+    private JestClient jc ;
+
+
     private HelperClass hc = new HelperClass();
     private final String fixedCheckOutTime = "11:00" ;
     private final int numTrendingHotels = 2  ;

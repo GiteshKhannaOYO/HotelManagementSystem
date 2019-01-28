@@ -13,7 +13,7 @@ public class HealthCheckController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HealthCheckController.class);
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
-    private String ping() {
+    public String ping() {
         LOGGER.info("Receiver ping");
         return "OK";
     }
